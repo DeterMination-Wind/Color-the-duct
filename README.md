@@ -51,9 +51,9 @@
 
 同时会复制一份到工作区根目录 `构建/`：
 
-- `构建/color-the-ducts-1.0.0.zip`
-- `构建/color-the-ducts-1.0.0.jar`
-- `构建/color-the-ducts-1.0.0-android.jar`
+- `构建/color-the-ducts-1.0.1.zip`
+- `构建/color-the-ducts-1.0.1.jar`
+- `构建/color-the-ducts-1.0.1-android.jar`
 
 ---
 

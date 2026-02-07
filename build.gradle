@@ -3,7 +3,7 @@ plugins{
 }
 
 group = "colortheducts"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories{
     mavenCentral()
@@ -16,7 +16,7 @@ dependencies{
         compileOnly project(":core")
     }else{
         // Standalone build: fetch Mindustry core from JitPack.
-        def mindustryVersion = (findProperty("mindustryVersion") ?: "v154.3").toString()
+        def mindustryVersion = (findProperty("mindustryVersion") ?: "v154.2").toString()
         compileOnly "com.github.Anuken.MindustryJitpack:core:$mindustryVersion"
     }
 }
