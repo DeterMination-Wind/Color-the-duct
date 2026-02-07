@@ -1,0 +1,11 @@
+{
+  "displayName": "Color-the-ducts",
+  "name": "color-the-ducts",
+  "version": "1.0.0",
+  "minGameVersion": 154,
+  "java": true,
+  "hidden": true,
+  "author": "DeterMination",
+  "main": "colortheducts.ColorTheDuctsMod",
+  "description": "纯客户端导管染色模组：为地图上液体导管在中心绘制液体颜色方块，便于快速识别运输中的液体。\\nClient-side liquid duct coloring: draws a centered liquid-colored square on each liquid duct to show what it currently transports."
+}
