@@ -1,7 +1,7 @@
 ## v1.0.1
 
-- Fix GitHub Actions build by pinning Mindustry dependency version to `v154.2`.
-- Keep release workflow using `-PmindustryVersion=v154.2` for deterministic CI builds.
+- Fix GitHub Actions build by pinning compile dependency to `MindustryJitpack core v146`.
+- Keep release workflow using `-PmindustryVersion=v146` for deterministic CI builds.
 
 ## v1.0.0
 
