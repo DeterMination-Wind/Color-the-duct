@@ -1,3 +1,8 @@
+## v1.2.0
+
+- Add a new hover-mode option to color the whole connected liquid-duct line under the cursor.
+- Connected-line detection now follows real liquid links, including junction pass-through and liquid bridge links.
+
 ## v1.1.0
 
 - Add a new settings toggle to switch between coloring all liquid ducts and only the duct under the mouse cursor.
