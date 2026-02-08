@@ -5,6 +5,7 @@ import arc.Events;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.Mathf;
+import arc.util.Tmp;
 import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.game.EventType.Trigger;
 import mindustry.gen.Building;
@@ -30,11 +31,15 @@ import static mindustry.Vars.world;
 public class ColorTheDuctsMod extends Mod{
     private static final String keyEnabled = "ctd-enabled";
     private static final String keyScaleTenths = "ctd-square-scale";
+    private static final String keyHoverOnly = "ctd-hover-only";
+    private static final String keyAlphaPercent = "ctd-alpha-percent";
 
     public ColorTheDuctsMod(){
         Events.on(ClientLoadEvent.class, e -> {
             Core.settings.defaults(keyEnabled, true);
             Core.settings.defaults(keyScaleTenths, 6);
+            Core.settings.defaults(keyHoverOnly, false);
+            Core.settings.defaults(keyAlphaPercent, 100);
             registerSettings();
         });
 
@@ -51,6 +56,8 @@ public class ColorTheDuctsMod extends Mod{
                 if(value <= 0) return Core.bundle.get("ctd.scale.off", "off");
                 return String.format(Locale.ROOT, "%.1f", value / 10f);
             });
+            table.checkPref(keyHoverOnly, false);
+            table.sliderPref(keyAlphaPercent, 100, 0, 100, 5, value -> value + "%");
         });
     }
 
@@ -61,12 +68,28 @@ public class ColorTheDuctsMod extends Mod{
         float scale = Mathf.clamp(Core.settings.getInt(keyScaleTenths, 6) / 10f, 0f, 1f);
         if(scale <= 0.0001f) return;
 
+        float alpha = Mathf.clamp(Core.settings.getInt(keyAlphaPercent, 100) / 100f, 0f, 1f);
+        if(alpha <= 0.0001f) return;
+
         Draw.z(Layer.blockOver + 0.1f);
-        Groups.build.each(build -> drawForBuilding(build, scale));
+        if(Core.settings.getBool(keyHoverOnly, false)){
+            drawForBuilding(getHoveredBuilding(), scale, alpha);
+        }else{
+            Groups.build.each(build -> drawForBuilding(build, scale, alpha));
+        }
         Draw.color();
     }
 
-    private void drawForBuilding(Building build, float scale){
+    private Building getHoveredBuilding(){
+        if(world == null || Core.camera == null || Core.input == null) return null;
+        if(Core.scene != null && Core.scene.hasMouse()) return null;
+
+        Tmp.v1.set(Core.input.mouseX(), Core.input.mouseY());
+        Core.camera.unproject(Tmp.v1);
+        return world.buildWorld(Tmp.v1.x, Tmp.v1.y);
+    }
+
+    private void drawForBuilding(Building build, float scale, float alpha){
         if(build == null || !build.isValid() || build.block == null) return;
         if(!isLiquidDuct(build.block)) return;
         if(build.liquids == null || build.liquids.currentAmount() <= 0.0001f) return;
@@ -78,6 +101,7 @@ public class ColorTheDuctsMod extends Mod{
         if(sideLength <= 0.0001f) return;
 
         Draw.color(liquid.color);
+        Draw.alpha(alpha);
         Fill.square(build.x, build.y, sideLength / 2f);
     }
 

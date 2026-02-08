@@ -1,3 +1,8 @@
+## v1.1.0
+
+- Add a new settings toggle to switch between coloring all liquid ducts and only the duct under the mouse cursor.
+- Add configurable coloring opacity (0% to 100%, step 5%) in settings.
+
 ## v1.0.2
 
 - Fix GitHub Actions release build by switching dependency coordinates to `com.github.Anuken.Mindustry:core`.
