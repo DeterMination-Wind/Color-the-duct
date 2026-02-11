@@ -3,7 +3,7 @@ plugins{
 }
 
 group = "colortheducts"
-version = "1.2.0"
+version = "1.2.1"
 
 repositories{
     mavenCentral()
@@ -61,8 +61,8 @@ tasks.register("copyJarToDist", Copy){
     doNotTrackState("Copying into dist is a convenience step; state tracking is unnecessary here.")
 }
 
-// Keep a copy in workspace root "构建/" (mod name + version).
-def buildCopyDir = new File(rootDir.parentFile, "构建")
+// Keep a copy in workspace root "构建/<mod-name>/" (mod name + version).
+def buildCopyDir = new File(rootDir.parentFile, "构建/${project.name}")
 
 tasks.register("copyZipToBuildFolder", Copy){
     dependsOn(tasks.named("zipMod"))

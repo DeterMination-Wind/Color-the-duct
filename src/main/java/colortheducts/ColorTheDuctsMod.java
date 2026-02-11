@@ -123,6 +123,9 @@ public class ColorTheDuctsMod extends Mod{
                 if(nearby == null || !nearby.isValid() || nearby.block == null) continue;
                 if(!isLiquidDuct(nearby.block) || nearby.team != current.team) continue;
 
+                enqueueJunctionOpposite(current, nearby, queue, queued, visited);
+                enqueueJunctionOpposite(nearby, current, queue, queued, visited);
+
                 if(getTransferDestination(current, nearby) != null || getTransferDestination(nearby, current) != null){
                     enqueueIfNeeded(nearby, queue, queued, visited);
                 }
@@ -133,6 +136,22 @@ public class ColorTheDuctsMod extends Mod{
                 }
             }
         }
+    }
+
+    private void enqueueJunctionOpposite(Building from, Building junction, ArrayDeque<Building> queue, IntSet queued, IntSet visited){
+        if(from == null || junction == null || from.block == null || junction.block == null) return;
+        if(!(junction.block instanceof LiquidJunction) || from.team != junction.team) return;
+
+        int dir = from.relativeTo(junction.tileX(), junction.tileY());
+        if(dir < 0 || dir > 3) return;
+
+        enqueueIfNeeded(junction, queue, queued, visited);
+
+        Building opposite = junction.nearby(dir);
+        if(opposite == null || !opposite.isValid() || opposite.block == null) return;
+        if(opposite.team != junction.team || !isLiquidDuct(opposite.block)) return;
+
+        enqueueIfNeeded(opposite, queue, queued, visited);
     }
 
     private void collectBridgeLinks(Building current, ArrayDeque<Building> queue, IntSet queued, IntSet visited){

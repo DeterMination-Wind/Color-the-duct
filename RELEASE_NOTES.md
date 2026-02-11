@@ -1,3 +1,7 @@
+## v1.2.1
+
+- Fix hover-line connected detection for liquid junctions: when a duct links into a junction, the opposite duct in the same direction is now included as part of the same line (e.g. `-x-`).
+
 ## v1.2.0
 
 - Add a new hover-mode option to color the whole connected liquid-duct line under the cursor.
