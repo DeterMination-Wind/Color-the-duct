@@ -1,4 +1,10 @@
 # Color-the-ducts (Mindustry Java Mod)
+<h1 align="center">
+  <a href="https://github.com/DeterMination-Wind/Color-the-duct/releases/latest"><img src="https://img.shields.io/github/v/release/DeterMination-Wind/Color-the-duct?display_name=release&label=Latest%20Release&color=green"></a>
+  <a href="https://github.com/DeterMination-Wind/Color-the-duct/releases"><img src="https://img.shields.io/github/downloads/DeterMination-Wind/Color-the-duct/total?label=Downloads&color=blue"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/DeterMination-Wind/Color-the-duct?label=License"></a>
+  <a href="https://github.com/DeterMination-Wind/Color-the-duct"><img src="https://img.shields.io/github/stars/DeterMination-Wind/Color-the-duct?style=flat&label=Star%20this%20mod!&color=yellow"></a>
+</h1>
 
 - [中文](#中文)
 - [English](#english)
