@@ -15,6 +15,7 @@ import mindustry.gen.Icon;
 import mindustry.graphics.Layer;
 import mindustry.mod.Mod;
 import mindustry.type.Liquid;
+import mindustry.ui.dialogs.SettingsMenuDialog;
 import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.blocks.distribution.DirectionBridge;
@@ -35,6 +36,8 @@ import static mindustry.Vars.ui;
 import static mindustry.Vars.world;
 
 public class ColorTheDuctsMod extends Mod{
+    public static boolean bekBundled = false;
+
     private static final String keyEnabled = "ctd-enabled";
     private static final String keyScaleTenths = "ctd-square-scale";
     private static final String keyHoverOnly = "ctd-hover-only";
@@ -43,12 +46,12 @@ public class ColorTheDuctsMod extends Mod{
 
     public ColorTheDuctsMod(){
         Events.on(ClientLoadEvent.class, e -> {
-            Core.settings.defaults(keyEnabled, true);
+            Core.settings.defaults(keyEnabled, defaultEnabled());
             Core.settings.defaults(keyScaleTenths, 6);
             Core.settings.defaults(keyHoverOnly, false);
             Core.settings.defaults(keyHoverLine, false);
             Core.settings.defaults(keyAlphaPercent, 100);
-            registerSettings();
+            if(!bekBundled) registerSettings();
         });
 
         Events.run(Trigger.draw, this::drawLiquidSquares);
@@ -58,20 +61,22 @@ public class ColorTheDuctsMod extends Mod{
         if(ui == null || ui.settings == null) return;
 
         String category = Core.bundle.get("ctd.category", "Color-the-ducts");
-        ui.settings.addCategory(category, Icon.imageSmall, table -> {
-            table.checkPref(keyEnabled, true);
-            table.sliderPref(keyScaleTenths, 6, 0, 10, 1, value -> {
-                if(value <= 0) return Core.bundle.get("ctd.scale.off", "off");
-                return String.format(Locale.ROOT, "%.1f", value / 10f);
-            });
-            table.checkPref(keyHoverOnly, false);
-            table.checkPref(keyHoverLine, false);
-            table.sliderPref(keyAlphaPercent, 100, 0, 100, 5, value -> value + "%");
+        ui.settings.addCategory(category, Icon.imageSmall, this::bekBuildSettings);
+    }
+
+    public void bekBuildSettings(SettingsMenuDialog.SettingsTable table){
+        table.checkPref(keyEnabled, defaultEnabled());
+        table.sliderPref(keyScaleTenths, 6, 0, 10, 1, value -> {
+            if(value <= 0) return Core.bundle.get("ctd.scale.off", "off");
+            return String.format(Locale.ROOT, "%.1f", value / 10f);
         });
+        table.checkPref(keyHoverOnly, false);
+        table.checkPref(keyHoverLine, false);
+        table.sliderPref(keyAlphaPercent, 100, 0, 100, 5, value -> value + "%");
     }
 
     private void drawLiquidSquares(){
-        if(!Core.settings.getBool(keyEnabled, true)) return;
+        if(!Core.settings.getBool(keyEnabled, defaultEnabled())) return;
         if(world == null || state == null || !state.isGame() || world.isGenerating()) return;
 
         float scale = Mathf.clamp(Core.settings.getInt(keyScaleTenths, 6) / 10f, 0f, 1f);
@@ -265,5 +270,9 @@ public class ColorTheDuctsMod extends Mod{
             || block instanceof LiquidRouter
             || block instanceof LiquidBridge
             || block instanceof DirectionLiquidBridge;
+    }
+
+    private static boolean defaultEnabled(){
+        return !bekBundled;
     }
 }
