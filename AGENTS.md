@@ -18,6 +18,7 @@ Color-the-ducts/
 |-- AGENTS.md
 |-- build.gradle
 |-- ctd_build_release_dox.md
+|-- gradle.properties
 |-- gradlew
 |-- gradlew.bat
 |-- LICENSE

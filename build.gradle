@@ -17,7 +17,7 @@ dependencies{
     }else{
         // Standalone build: fetch Mindustry core from JitPack.
         def mindustryVersion = (findProperty("mindustryVersion") ?: "v146").toString()
-        compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
+        compileOnly "com.github.Anuken.MindustryJitpack:core:$mindustryVersion"
     }
 }
 

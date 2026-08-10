@@ -1,3 +1,13 @@
+## v1.2.3
+
+- Add Neon aggregate hooks: expose a public `bekBuildSettings(SettingsMenuDialog.SettingsTable)` hook and a `bekBundled` flag so a bundling host mod (e.g. Neon) can embed the settings UI and suppress auto-registration; the default "enabled" state now adapts when bundled.
+
+## v1.2.2
+
+- Merge desktop and Android into a single artifact: `dist/color-the-ducts.jar` / `dist/color-the-ducts.zip` now contain `classes.dex` and `mod.json` and work on both platforms.
+- Move `mod.json` from `src/main/resources/` to the repo root.
+- Release workflow now builds with `clean deploy` and uploads `dist/*.jar` and `dist/*.zip`.
+
 ## v1.2.1
 
 - Fix hover-line connected detection for liquid junctions: when a duct links into a junction, the opposite duct in the same direction is now included as part of the same line (e.g. `-x-`).
