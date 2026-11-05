@@ -1,5 +1,7 @@
 # Color-the-ducts
 
+> [NOTE] 若有反馈，请发送反馈到bugsoc@qq.com / If you have any feedback, please send it to bugsoc@qq.com
+
 ## 中文
 
 > 直接看导管颜色，就知道里面运输的是什么液体。
